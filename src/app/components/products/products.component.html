@@ -1,0 +1,197 @@
+<div class="products-wrapper">
+
+  <div class="row">
+
+    <div class="col-12">
+      <h1>Products List</h1>
+      <button md-button type="button" *ngIf="!showProductFrom" (click)="showProductFrom = true">Add Product</button>
+    </div>
+
+  </div>
+
+  <form *ngIf="showProductFrom" (ngSubmit)="onSubmit()" #form="ngForm">
+
+    <div class="row">
+
+      <div class="col-12">
+        <h2>Customer's form</h2>
+      </div>
+
+      <div class="col-12">
+        <md-input-container>
+          <input mdInput placeholder="Search customer by ID number"
+                 [(ngModel)]="id_number" name="filter" type="number">
+        </md-input-container>
+      </div>
+
+      <div class="col-12">
+        <div class="list-group" *ngIf="id_number !== null">
+          <button type="button" class="list-group-item list-group-item-action"
+             *ngFor="let customer of mainService.customers | filterByIdNumber:id_number"
+             [class.active]="customer == selectedCustomer"
+             (click)="selectCustomer(customer)">{{customer.id_number}} - {{customer.name}} {{customer.surname}}</button>
+        </div>
+      </div>
+
+      <div class="col-sm-6" *ngIf="selectedCustomer !== null">
+        <md-input-container>
+          <input mdInput placeholder="Selected customer name" [(ngModel)]="selectedCustomer.name"
+                 name="selected_customer_name" readonly>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6" *ngIf="selectedCustomer !== null">
+        <md-input-container>
+          <input mdInput placeholder="Selected customer surname" [(ngModel)]="selectedCustomer.surname"
+                 name="selected_customer_surname" readonly>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-12">
+        <md-select placeholder="Product type" name="type"
+                   [(ngModel)]="product.type" required>
+          <md-option [value]="'card'">Card</md-option>
+          <md-option [value]="'loan'">Loan</md-option>
+          <md-option [value]="'insurance'">Insurance</md-option>
+        </md-select>
+      </div>
+
+      <div class="col-sm-12" *ngIf="product.type == 'card'">
+        <h2>Card details</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <md-select placeholder="Card type" name="card_type"
+                       [(ngModel)]="card.card_type" required>
+              <md-option [value]="'VISA'">VISA</md-option>
+              <md-option [value]="'MasterCard'">MasterCard</md-option>
+              <md-option [value]="'AMEX'">AMEX</md-option>
+            </md-select>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Card Number" name="card_number" type="number"
+                     [(ngModel)]="card.card_number" required>
+            </md-input-container>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Card Owner" name="card_owner" type="text"
+                     [(ngModel)]="card.card_owner" required>
+            </md-input-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" *ngIf="product.type == 'loan'">
+        <h2>Loan details</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <md-select placeholder="Loan type" name="loan_type"
+                       [(ngModel)]="loan.loan_type" required>
+              <md-option [value]="'Consumer'">Consumer</md-option>
+              <md-option [value]="'Installment'">Installment</md-option>
+              <md-option [value]="'Mortgage'">Mortgage</md-option>
+            </md-select>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Loan contract number" name="contract_number"
+                     [(ngModel)]="loan.contract_number" required>
+            </md-input-container>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Loan interest rate" name="interest_rate"
+                     [(ngModel)]="loan.interest_rate" required>
+            </md-input-container>
+          </div>
+          <div class="col-sm-4">
+            <md-select placeholder="Type of payment schedule" name="payment_schedule_type"
+                       [(ngModel)]="loan.payment_schedule_type" required>
+              <md-option [value]="'Annuity'">Annuity</md-option>
+              <md-option [value]="'At the end'">At the end</md-option>
+              <md-option [value]="'Irregular'">Irregular</md-option>
+            </md-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" *ngIf="product.type == 'insurance'">
+        <h2>Insurance details</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <md-select placeholder="Insurance type" name="insurance_type"
+                       [(ngModel)]="insurance.insurance_type" required>
+              <md-option [value]="'Life insurance'">Life insurance</md-option>
+              <md-option [value]="'Property insurance'">Property insurance</md-option>
+              <md-option [value]="'Car insurance'">Car insurance</md-option>
+            </md-select>
+          </div>
+          <div class="col-sm-4">
+            <md-select placeholder="Insurer" name="insurer"
+                       [(ngModel)]="insurance.insurer" required>
+              <md-option [value]="'aldagi'">Aldagi</md-option>
+              <md-option [value]="'gpi'">GPI</md-option>
+            </md-select>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Policy number" name="policy_number"
+                     [(ngModel)]="insurance.policy_number" required>
+            </md-input-container>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Insurance premium" name="insurance_premium"
+                     [(ngModel)]="insurance.insurance_premium" required>
+            </md-input-container>
+          </div>
+          <div class="col-sm-4">
+            <md-input-container>
+              <input mdInput placeholder="Franchise" name="franchise"
+                     [(ngModel)]="insurance.franchise" required>
+            </md-input-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput placeholder="Register date" [(ngModel)]="product.register_date"
+                 name="register_date" readonly>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6 calendar-wrapper">
+        <p-calendar placeholder="Finish Date" name="finish_date"
+                    [(ngModel)]="product.finish_date"
+                    [showIcon]="true" [monthNavigator]="true"
+                    [yearNavigator]="true" required></p-calendar>
+      </div>
+
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput placeholder="Amount" [(ngModel)]="product.amount"
+                 name="amount" type="number" required>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6">
+        <md-select placeholder="Currency" name="currency"
+                   [(ngModel)]="product.currency" required>
+          <md-option [value]="'GEL'">GEL</md-option>
+          <md-option [value]="'USD'">USD</md-option>
+          <md-option [value]="'EUR'">EUR</md-option>
+        </md-select>
+      </div>
+
+      <div class="col-12">
+        <button md-button type="submit" class="bog-btn"
+                [disabled]="!form.form.valid">Register</button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

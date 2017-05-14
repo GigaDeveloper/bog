@@ -1,0 +1,112 @@
+@import "css3-mixins";
+
+a,
+a:focus,
+button,
+button:focus {
+  outline: none;
+}
+
+.main-wrapper {
+  padding: 30px 0;
+}
+
+.register-wrapper,
+.products-wrapper,
+.search-wrapper {
+  padding: 20px;
+  border-left: 1px solid #f47922;
+  border-bottom: 1px solid #f47922;
+  border-right: 1px solid #f47922;
+  h1 {
+    color: #f47922;
+    font-size: 22px;
+    font-weight: normal;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+    line-height: 30px;
+  }
+  h2 {
+    color: #f47922;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+    line-height: 20px;
+  }
+}
+
+.ui-inputtext {
+  background: transparent !important;
+}
+.ui-corner-all {
+  @include border-radius(0);
+}
+
+.mat-select {
+  width: 224px;
+  margin-top: 11px;
+  margin-bottom: 10px;
+}
+
+.mat-input-container {
+  width: 224px;
+}
+
+.bog-btn {
+  color: #f47922 !important;
+  border: 1px solid #f47922 !important;
+  &:disabled {
+    color: #d0d0d0 !important;
+    border: 1px solid #d0d0d0 !important;
+  }
+}
+
+.flash-message {
+  position: absolute;
+  z-index: 99;
+  top: 10px;
+  left: 0;
+  right: 0;
+}
+
+.contacts-addresses {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #f47922;
+  .nav-link {
+    &.active {
+      color: #f47922;
+      border-color: #f47922 #f47922 #fff;
+    }
+  }
+}
+
+.list-group {
+  margin-bottom: 20px;
+  .list-group-item {
+    cursor: pointer;
+  }
+}
+
+.table {
+  th {
+    cursor: pointer;
+    span {
+      display: none;
+    }
+    &.sortable {
+      span {
+        display: inline;
+      }
+    }
+  }
+}
+
+.table-hover {
+  tbody {
+    tr {
+      cursor: pointer;
+    }
+  }
+}

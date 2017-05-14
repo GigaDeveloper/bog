@@ -1,0 +1,53 @@
+<div class="search-wrapper">
+
+  <div class="row">
+
+    <div class="col-12">
+      <h1>Search customer</h1>
+
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th (click)="setSortBy('name')"
+            [class.sortable]="order == 'name'">Name
+            <span *ngIf="asc">&#9650;</span>
+            <span *ngIf="!asc">&#9660;</span>
+          </th>
+          <th (click)="setSortBy('surname')"
+            [class.sortable]="order == 'surname'">Surname
+            <span *ngIf="asc">&#9650;</span>
+            <span *ngIf="!asc">&#9660;</span>
+          </th>
+          <th (click)="setSortBy('id_number')"
+            [class.sortable]="order == 'id_number'">ID Number
+            <span *ngIf="asc">&#9650;</span>
+            <span *ngIf="!asc">&#9660;</span>
+          </th>
+          <th (click)="setSortBy('date_of_birth')"
+            [class.sortable]="order == 'date_of_birth'">Date of birth
+            <span *ngIf="asc">&#9650;</span>
+            <span *ngIf="!asc">&#9660;</span>
+          </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let customer of mainService.customers | orderBy: order:asc"
+          (click)="selectCustomer(customer)"
+          [class.table-active]="customer == selectedCustomer">
+          <td>{{customer.name}}</td>
+          <td>{{customer.surname}}</td>
+          <td>{{customer.id_number}}</td>
+          <td>{{customer.date_of_birth | date: 'dd-MM-yyyy'}}</td>
+          <td><a href="javascript:void(0)" (click)="more_details(customer)">More details</a></td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<pre *ngIf="selectedCustomer?.products.length > 0">{{selectedCustomer.products|json}}</pre>

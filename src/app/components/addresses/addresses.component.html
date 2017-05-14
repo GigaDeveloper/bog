@@ -1,0 +1,22 @@
+<form (ngSubmit)="saveAddress()" #addressForm="ngForm">
+  <div class="row">
+    <div class="col-12">
+      <md-select placeholder="Address type" [(ngModel)]="address.type"
+                 name="addresses_type" required>
+        <md-option [value]="'Actually Address'">Actually Address</md-option>
+        <md-option [value]="'Recording Address'">Recording Address</md-option>
+      </md-select>
+    </div>
+    <div class="col-12">
+      <md-input-container>
+        <input mdInput placeholder="Address" [(ngModel)]="address.address"
+               name="addresses_address" required>
+      </md-input-container>
+    </div>
+    <div class="col-12">
+      <button md-button type="button" (click)="closeForm()">Cancel</button>
+      <button md-button type="submit"
+              [disabled]="!addressForm.form.valid">Save address</button>
+    </div>
+  </div>
+</form>

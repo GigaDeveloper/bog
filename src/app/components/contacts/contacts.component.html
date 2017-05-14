@@ -1,0 +1,24 @@
+<form (ngSubmit)="saveContact()" #contactForm="ngForm">
+  <div class="row">
+    <div class="col-12">
+      <md-select placeholder="Contact type" [(ngModel)]="contact.type"
+                 name="contacts_type" required>
+        <md-option [value]="'Email'">Email</md-option>
+        <md-option [value]="'Mobile number'">Mobile number</md-option>
+        <md-option [value]="'Home phone number'">Home phone number</md-option>
+        <md-option [value]="'Office phone number'">Office phone number</md-option>
+      </md-select>
+    </div>
+    <div class="col-12">
+      <md-input-container>
+        <input mdInput placeholder="Contact" [(ngModel)]="contact.contact"
+               name="contacts_contact" required>
+      </md-input-container>
+    </div>
+    <div class="col-12">
+      <button md-button type="button" (click)="closeForm()">Cancel</button>
+      <button md-button type="submit"
+              [disabled]="!contactForm.form.valid">Save contact</button>
+    </div>
+</div>
+</form>

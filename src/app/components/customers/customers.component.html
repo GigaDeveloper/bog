@@ -1,0 +1,126 @@
+<div class="register-wrapper">
+
+  <div class="row">
+
+    <div class="col-12">
+      <h1>Customer's list</h1>
+
+      <ul *ngIf="mainService.customers.length > 0">
+        <li *ngFor="let customer of mainService.customers">{{customer.name}} {{customer.surname}}</li>
+      </ul>
+
+      <button md-button type="button" *ngIf="!showCustomerFrom" (click)="showCustomerFrom = true">Add Customer</button>
+    </div>
+  </div>
+
+  <form *ngIf="showCustomerFrom" (ngSubmit)="onSubmit()" #form="ngForm">
+
+    <div class="row">
+
+      <div class="col-12">
+        <h1>Customer's information</h1>
+      </div>
+
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput placeholder="Name" [(ngModel)]="customer.name"
+                 name="name" required>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput placeholder="Surname" [(ngModel)]="customer.surname"
+                 name="surname" required>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6">
+        <md-input-container>
+          <input mdInput placeholder="ID number" [(ngModel)]="customer.id_number"
+                 name="id_number" required>
+        </md-input-container>
+      </div>
+
+      <div class="col-sm-6 calendar-wrapper">
+        <p-calendar placeholder="Date of Birth" name="date_of_birth"
+                    [(ngModel)]="customer.date_of_birth"
+                    [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                    yearRange="1900:2017" required></p-calendar>
+      </div>
+
+      <div class="col-sm-6">
+        <md-select placeholder="Sex" name="sex"
+                   [(ngModel)]="customer.sex" required>
+          <md-option [value]="'Male'">Male</md-option>
+          <md-option [value]="'Female'">Female</md-option>
+        </md-select>
+      </div>
+
+      <div class="col-sm-6">
+        <md-select placeholder="Marital status" name="material_status"
+                   [(ngModel)]="customer.material_status" required>
+          <md-option [value]="'Married'">Married</md-option>
+          <md-option [value]="'Widowed'">Widowed</md-option>
+          <md-option [value]="'Separated'">Separated</md-option>
+          <md-option [value]="'Divorced'">Divorced</md-option>
+          <md-option [value]="'Single'">Single</md-option>
+        </md-select>
+      </div>
+
+      <div class="col-sm-6">
+        <md-select placeholder="Education level" [(ngModel)]="customer.education_level"
+                   name="education_level" required>
+          <md-option [value]="'High School'">High School</md-option>
+          <md-option [value]="'College'">College</md-option>
+          <md-option [value]="'Bachelor\'s Degree'">Bachelor's Degree</md-option>
+          <md-option [value]="'Master\'s Degree'">Master's Degree</md-option>
+          <md-option [value]="'Doctorate Degree'">Doctorate Degree</md-option>
+        </md-select>
+      </div>
+
+      <div class="col-12 contacts-addresses">
+        <div class="row">
+          <div class="col-6">
+            <h2>Contacts</h2>
+            <ul class="list-group" *ngIf="customer.contacts">
+              <li class="list-group-item" *ngFor="let contact of customer.contacts">
+                {{contact.contact}}
+                <button md-button type="button" (click)="editContact(contact)">Edit</button>
+                <button md-button type="button" (click)="contactConfirmDialog(contact)">Delete</button>
+              </li>
+            </ul>
+            <app-contacts *ngIf="showContactFrom"
+                          [editableContact]="editableContact"
+                          (returnContact)="setReturnedContact($event)"
+                          (closeContactFrom)="setCloseContactFrom($event)"></app-contacts>
+            <button md-button *ngIf="!showContactFrom" type="button" (click)="showContactFrom = true">Add contact</button>
+          </div>
+          <div class="col-6">
+            <h2>Addresses</h2>
+            <ul class="list-group" *ngIf="customer.addresses">
+              <li class="list-group-item" *ngFor="let address of customer.addresses">
+                {{address.address}}
+                <button md-button type="button" (click)="editAddress(address)">Edit</button>
+                <button md-button type="button" (click)="addressConfirmDialog(address)">Delete</button>
+              </li>
+            </ul>
+            <app-addresses *ngIf="showAddressFrom"
+                           [editableAddress]="editableAddress"
+                           (returnAddress)="setReturnedAddress($event)"
+                           (closeAddressFrom)="setCloseAddressFrom($event)"></app-addresses>
+            <button md-button *ngIf="!showAddressFrom" type="button" (click)="showAddressFrom = true">Add address</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button md-button type="submit" class="bog-btn"
+                [disabled]="!form.form.valid">Save</button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

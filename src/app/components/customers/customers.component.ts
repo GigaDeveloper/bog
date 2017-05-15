@@ -48,6 +48,7 @@ export class CustomersComponent implements OnInit {
   setReturnedContact(contact) {
     this.showContactFrom = false;
     this.customer.contacts.push(contact);
+    this.editableContact = new Contact(null, null);
   }
 
   editContact(contact) {
@@ -60,6 +61,7 @@ export class CustomersComponent implements OnInit {
 
   setCloseContactFrom(bool) {
     if (bool) {
+      this.editableContact = new Contact(null, null);
       this.showContactFrom = false;
     }
   }
@@ -83,6 +85,7 @@ export class CustomersComponent implements OnInit {
   setReturnedAddress(address) {
     this.showAddressFrom = false;
     this.customer.addresses.push(address);
+    this.editableAddress = new Address(null, null);
   }
 
   editAddress(address) {
@@ -95,6 +98,7 @@ export class CustomersComponent implements OnInit {
 
   setCloseAddressFrom(bool) {
     if (bool) {
+      this.editableAddress = new Address(null, null);
       this.showAddressFrom = false;
     }
   }
